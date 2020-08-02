@@ -21,6 +21,9 @@
 		margin: auto;
 		cursor: pointer;
 		}
+	p {
+		text-align: center; 
+		font-size: 10px;}
 </style>
 </head>
 
@@ -40,6 +43,11 @@
 <button class="button" onclick="location.href='http://jhuamani.github.io/Site2.html'" type="button">Top 10 Countries</button>
 </div>
 
+<p>Data Source: "Yearbook of Immigration Statistics" U.S. Department of Homeland Security,
+https://www.dhs.gov/immigration-statistics/yearbook</br>
+Historical Event Sources: "Wikipedia" Wikimedia Foundation, https://en.wikipedia.org/</br>
+"Library" Central Intelligence Agency, https://cia.gov/library</br>
+"U.S. Immigration Timeline" History, A&E Television Networks "https://history.com/topics/immigration/immigration-united-states-timeline</p>
 <script>
 async function init() {
  
@@ -123,6 +131,7 @@ points
 	  
 	  Fact
 	  .style("opacity",1)
+	  .style("font-weight", "bold")
 	  .html(d.Year + " Events: " + d.History)
 	  
 	  d3.select(this)

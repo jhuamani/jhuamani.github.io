@@ -18,6 +18,11 @@
 		margin: auto;
 		cursor: pointer;
 		}
+	select{font-size: 20px; font-weight: bold;}
+	#dropdown{margin:0 auto;width:100px;}
+	p {
+		text-align: center; 
+		font-size: 10px;}
 </style>
 </head>
 
@@ -25,6 +30,7 @@
 
 <h1>U.S. Immigrants Admitted by Age Group</h1>
 
+<div id="dropdown">
 <select id="year">
   <option value="1986" selected="selected">1986</option>
   <option value="1987">1987</option>
@@ -60,6 +66,7 @@
   <option value="2017">2017</option> 
   <option value="2018">2018</option> 
 </select>
+</div>
 
 <svg width=1000 height=500 ></svg>
 
@@ -70,6 +77,9 @@
 <div style="float: right;">
 <button class="button" onclick="location.href='http://jhuamani.github.io/Site1.html'" type="button">Immigrants Admitted</button>
 </div>
+
+<p>Source: "Yearbook of Immigration Statistics" U.S. Department of Homeland Security,
+https://www.dhs.gov/immigration-statistics/yearbook </p> 
 
 <script>
 

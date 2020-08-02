@@ -18,6 +18,11 @@
 		margin: auto;
 		cursor: pointer;
 		}
+	select{font-size: 20px; font-weight: bold;}
+	#dropdown{margin:0 auto;width:100px;}
+	p {
+		text-align: center; 
+		font-size: 10px;}
 </style>
 </head>
 
@@ -25,6 +30,7 @@
 
 <h1>Top 10 Countries of Origin by Decade</h1>
 
+<div id="dropdown">
 <select id="decades">
   <option value="1820to1829" selected="selected">1820 to 1829</option>
   <option value="1830to1839">1830 to 1839</option>
@@ -46,6 +52,7 @@
   <option value="2000to2009">2000 to 2009</option>
   <option value="2010to2018">2010 to 2018</option>
 </select>
+</div>
 
 
 
@@ -58,6 +65,9 @@
 <div style="float: right;">
 <button class="button" onclick="location.href='http://jhuamani.github.io/Site3.html'" type="button">Age Groups</button>
 </div>
+
+<p>Source: "Yearbook of Immigration Statistics" U.S. Department of Homeland Security,
+https://www.dhs.gov/immigration-statistics/yearbook </p> 
 
 <script>
 
@@ -80,7 +90,7 @@ var currentDecade = document.getElementById("decades").value
 FiltData = data.sort(function(a,b) { return +a[currentDecade] - +b[currentDecade]; });
 FiltData = FiltData.filter(function(d,i){ return i>68; });
 
-var margin = 100;
+var margin = 100; //all but left margin
 var height = 550 - 2*margin;
 var width = 1000-2*margin;
 
@@ -89,19 +99,19 @@ var y = d3.scaleBand().domain(FiltData.map(function(d) {return d.Countries;}))
   .range([height,0]).padding(0.1);
 
 yaxis = d3.select("svg").append("g")
-  .attr("transform","translate("+margin+","+margin+")")
+  .attr("transform","translate("+150+","+margin+")")
   .call(d3.axisLeft(y));
  
 //x-axis
 var ticks = [1000,10000,100000,1000000,3000000];
 var x = d3.scaleLog().domain([1000,3000000]).range([0,width]);
 xaxis = d3.select("svg").append("g")
-  .attr("transform","translate("+margin+","+(height+margin)+")")
+  .attr("transform","translate("+150+","+(height+margin)+")")
   .call(d3.axisBottom(x).tickFormat(d3.format(",")).tickValues(ticks));
 
 //Bars for barchart
 var rects = d3.select("svg").append("g")
-  .attr("transform","translate("+margin+","+margin+")")
+  .attr("transform","translate("+150+","+margin+")")
   .selectAll("rect").data(FiltData).enter().append("rect")
   .attr("x", 0)
   .attr("y", function(d) {return y(d.Countries);})

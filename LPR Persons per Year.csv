@@ -33,7 +33,7 @@ Year,Persons,History
 1851,379466,
 1852,371603,
 1853,368645,
-1854,427833,
+1854,427833,"Rise in German Immigration, Know-Nothing Party riots against immigrants killing 10 people"
 1855,200877,
 1856,200436,
 1857,251306,
@@ -64,20 +64,20 @@ Year,Persons,History
 1882,788992,The Chinese Exclusion Act passes baring Chinese immigrants from entering the U.S.
 1883,603322,
 1884,518592,
-1885,395346,
+1885,395346,"Passage of the Carraige of Passengers Act of 1855, creating strict guidelines pertaining to the number of passengers and conditoins to be allowed on inbound ships to the U.S. "
 1886,334203,
 1887,490109,
 1888,546889,
 1889,444427,
 1890,455302,
-1891,560319,Immigration Act of 1891 further excluding who can enter the U.S. Add more detail
+1891,560319,"Immigration Act of 1891 further excluding who can enter the U.S. Polygamists, covicted persons, and sick people were banned from immigrating to the U.S. The act also created a federal immigration office and established immigration inspectors at principle ports of entry."
 1892,579663,"Ellis Island, the first U.S. immigration station, opens in New York Harbor"
 1893,439730,
 1894,285631,
 1895,258536,
 1896,343267,
 1897,230832,
-1898,229299,
+1898,229299,Spanish American War
 1899,311715,
 1900,448572,
 1901,487918,
@@ -86,7 +86,7 @@ Year,Persons,History
 1904,812870,
 1905,1026499,
 1906,1100735,
-1907,1285349,Gentlemen's Agreement between the U.S. and Japan which limited Japanese emigration to the U.S in exchange for the end of segragation of Japanese students in San Fransisco schools
+1907,1285349,Gentlemen's Agreement between the U.S. and Japan which limited Japanese emigration to the U.S in exchange for the end of segragation of Japanese students in San Fransisco schools. Immigration peaks with 1.3 million entering through Ellis Island alone.
 1908,782870,
 1909,751786,
 1910,1041570,
@@ -129,12 +129,12 @@ Year,Persons,History
 1947,147292,
 1948,170570,Displaced Persons Act passes allowing European refugees affected by World War 2 to resettle in the U.S.
 1949,188317,
-1950,249187,
+1950,249187,Start of Korean War
 1951,205717,
 1952,265520,McCarran-Walter Act formally ends the exclusion of Asian immigrants to the U.S.
-1953,170434,
-1954,208177,
-1955,237790,
+1953,170434,End of Korean War
+1954,208177,U.S. backed coup in Guatemala
+1955,237790,Start of Vietnam War
 1956,321625,The U.S. admits Hungarian immigrants which are among the first Cold War refugees
 1957,326867,
 1958,253265,
@@ -154,7 +154,7 @@ Year,Persons,History
 1972,384685,
 1973,398515,
 1974,393919,
-1975,385378,
+1975,385378,End of Vietnam War
 1976,499093,
 1977,458755,
 1978,589810,Nicaraguan Revolution
@@ -165,24 +165,24 @@ Year,Persons,History
 1983,550052,
 1984,541811,
 1985,568149,
-1986,600027,Ronald Reagan signs The Immigration Reform and Control Act granting amnesty to more than 3 million immigrantsliving illegally in the U.S.
+1986,600027,Ronald Reagan signs The Immigration Reform and Control Act granting amnesty to more than 3 million immigrants living illegally in the U.S.
 1987,599889,
 1988,641346,
-1989,1090172,
+1989,1090172,Fall of the Berlin Wall
 1990,1535872,Immigration Act of 1990 is passed allowing the president to grant a temporary protect status to immigrants from countries afflicted with armed conflict or natural disasters
 1991,1826595,Dissolution of the Soviet Union into 15 independent Republics
-1992,973445,Breakup of Yugoslavia and formation of independent successor states
+1992,973445,"Breakup of Yugoslavia and formation of independent successor states, start of Bosnian War"
 1993,903916,
 1994,803993,
-1995,720177,
+1995,720177,"Leaders of Bosnia, Croatia and Serbia agree to a peace deal"
 1996,915560,
 1997,797847,
-1998,653206,
+1998,653206,War breaks out in Kosovo
 1999,644787,
 2000,841002,
 2001,1058902,September 11 atack on the World Trade Center
 2002,1059356,Creation of the Department of Homeland Security
-2003,703542,
+2003,703542,U.S. invades Iraq
 2004,957883,
 2005,1122257,
 2006,1266129,Secure Fence Act approved $1.2 billion for 700 miles of fence along the U.S.- Mexico border
@@ -196,5 +196,5 @@ Year,Persons,History
 2014,1016518,
 2015,1051031,
 2016,1183505,
-2017,1127167,
-2018,1096611,
+2017,1127167,President Trump imposes a Travel Ban on 13 countries
+2018,1096611,President Trump imposes a family serpartion policy at the U.S.-Mexico border (policy has since been reversed) and introduces stricter restrictions on asylum seekers and refugees
