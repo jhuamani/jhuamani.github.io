@@ -1,0 +1,164 @@
+<html>
+
+<script src='https://d3js.org/d3.v5.min.js'></script>
+
+<head>
+<style> 
+	h1 { text-align:center}
+	svg {display: block;  margin: auto;}
+	.button {
+		background-color: #003f5c;
+		border: none;
+		color: white;
+		padding: 15px 15px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+		margin: auto;
+		cursor: pointer;
+		}
+</style>
+</head>
+
+<body onload='init()'>
+
+<h1>Top 10 Countries of Origin by Decade</h1>
+
+<select id="decades">
+  <option value="1820to1829" selected="selected">1820 to 1829</option>
+  <option value="1830to1839">1830 to 1839</option>
+  <option value="1840to1849">1840 to 1849</option>
+  <option value="1850to1859">1850 to 1859</option>
+  <option value="1860to1869">1860 to 1869</option>
+  <option value="1870to1879">1870 to 1879</option>
+  <option value="1890to1899">1890 to 1899</option>
+  <option value="1900to1909">1900 to 1909</option>
+  <option value="1910to1919">1910 to 1919</option>
+  <option value="1920to1929">1920 to 1929</option>
+  <option value="1930to1939">1930 to 1939</option>
+  <option value="1940to1949">1940 to 1949</option>
+  <option value="1950to1959">1950 to 1959</option>
+  <option value="1960to1969">1960 to 1969</option>
+  <option value="1970to1979">1970 to 1979</option>
+  <option value="1980to1989">1980 to 1989</option>
+  <option value="1990to1999">1990 to 1999</option>
+  <option value="2000to2009">2000 to 2009</option>
+  <option value="2010to2018">2010 to 2018</option>
+</select>
+
+
+
+<svg width=1000 height=500 ></svg>
+
+<div style="float: left;">
+<button class="button" onclick="location.href='http://jhuamani.github.io/Site1.htm'" type="button">Immigrants Admitted</button>
+</div>
+
+<div style="float: right;">
+<button class="button" onclick="location.href='http://jhuamani.github.io/Site3.htm'" type="button">Age Groups</button>
+</div>
+
+<script>
+
+async function init() {
+ 
+data = await d3.csv("https://jhuamani.github.io/Countries%20and%20Decades.csv");
+
+//Tooltip
+var tooltip = d3.select("body").append("div")
+  .attr("class", "tooltip")
+  .style("opacity",0)
+  .style("position","absolute")
+  .style("background-color", "white")
+  .style("padding", "5px");
+
+var currentDecade = document.getElementById("decades").value
+
+//sorting data according to first column
+//then filtering out top 10 countries in descending order
+FiltData = data.sort(function(a,b) { return +a[currentDecade] - +b[currentDecade]; });
+FiltData = FiltData.filter(function(d,i){ return i>68; });
+
+var margin = 100;
+var height = 550 - 2*margin;
+var width = 1000-2*margin;
+
+//y-axis
+var y = d3.scaleBand().domain(FiltData.map(function(d) {return d.Countries;}))
+  .range([height,0]).padding(0.1);
+
+yaxis = d3.select("svg").append("g")
+  .attr("transform","translate("+margin+","+margin+")")
+  .call(d3.axisLeft(y));
+ 
+//x-axis
+var ticks = [1000,10000,100000,1000000,3000000];
+var x = d3.scaleLog().domain([1000,3000000]).range([0,width]);
+xaxis = d3.select("svg").append("g")
+  .attr("transform","translate("+margin+","+(height+margin)+")")
+  .call(d3.axisBottom(x).tickFormat(d3.format(",")).tickValues(ticks));
+
+//Bars for barchart
+var rects = d3.select("svg").append("g")
+  .attr("transform","translate("+margin+","+margin+")")
+  .selectAll("rect").data(FiltData).enter().append("rect")
+  .attr("x", 0)
+  .attr("y", function(d) {return y(d.Countries);})
+  .attr("height", y.bandwidth())
+  .attr("width", function(d) {return x(d[currentDecade]);})
+  .attr("fill", "#58508d")
+  .on("mouseover",function(d){
+	  tooltip
+	  .style("opacity",1)
+	  
+	  d3.select(this)
+	  .attr("fill", "#ffa600");
+     ;})
+  .on("mousemove",function(d){
+	  tooltip
+	  .style("left", (d3.event.pageX + 60) + "px")
+      .style("top", (d3.event.pageY) + "px")
+	  .html("Country: " + d.Countries + "<br>" + "Immigrants: " + d[currentDecade])
+	 ;})
+	  
+	  
+  .on("mouseout",function () {
+	  tooltip.style("opacity",0)
+	  
+	  d3.select(this)
+	  .attr("fill", "#58508d")
+	 ;});
+
+function rebar(decade){
+	
+	FiltData = data.sort(function(a,b) { return +a[decade] - +b[decade]; });
+	FiltData = FiltData.filter(function(d,i){ return i>68; })
+	
+	y.domain(FiltData.map(function(d) {return d.Countries;}))
+	yaxis.transition().duration(1000).call(d3.axisLeft(y));
+	
+	var update = d3.select("svg").selectAll("rect").data(FiltData);
+	
+	update
+	.enter().append("rect").merge(update)
+	.transition().duration(1000)
+	.attr("x", 0)
+	.attr("y", function(d) {return y(d.Countries);})
+	.attr("height", y.bandwidth())
+	.attr("width", function(d) {return x(d[decade]);})
+	.attr("fill", "#58508d")
+	
+};
+
+d3.select("#decades").on("change", function(d){
+	currentDecade = this.value
+	rebar(currentDecade)
+});
+
+
+}
+</script>
+
+</body>
+</html>

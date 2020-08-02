@@ -1,0 +1,186 @@
+<html>
+
+<script src='https://d3js.org/d3.v5.min.js'></script>
+
+<head>
+<style> 
+	h1 { text-align:center}
+	svg {display: block;  margin: auto;}
+	div {display: block;  margin: auto;}
+	.slider {margin: auto; width: 1000;}
+	.fact {margin: auto; width: 1000;}
+	.button {
+		background-color: #003f5c;
+		border: none;
+		color: white;
+		padding: 15px 15px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+		margin: auto;
+		cursor: pointer;
+		}
+</style>
+</head>
+
+<body onload='init()'>
+
+<h1>U.S. Immigrants Admitted: 1820 - 2018</h1>
+
+<svg width=1000 height=500 ></svg>
+<div class="slider"></div>
+<div class="fact"></div>
+
+<div style="float: left;">
+<button class="button" onclick="location.href='http://jhuamani.github.io/Site3.htm'" type="button">Age Groups</button>
+</div>
+
+<div style="float: right;">
+<button class="button" onclick="location.href='http://jhuamani.github.io/Site2.htm'" type="button">Top 10 Countries</button>
+</div>
+
+<script>
+async function init() {
+ 
+data = await d3.csv("https://jhuamani.github.io/LPR%20Persons%20per%20Year.csv");
+
+var dateSlider = d3.select(".slider").append("g")
+  .attr("transform","translate("+50+","+50+")").append("input")
+
+
+//Slider with a start of 1820 and end of 2020 in steps of 1
+dateSlider
+  .attr("type","range")
+  .attr("name","dateSlider")
+  .attr("id","dateSlider")
+  .attr("min",1820)
+  .attr("max",2020)
+  .attr("step",1)
+  .attr("value",2020)
+  .style("width",1000);
+
+//Tooltip
+var tooltip = d3.select("body").append("div")
+  .attr("class", "tooltip")
+  .style("opacity",0)
+  .style("position","absolute")
+  .style("background-color", "white")
+  .style("padding", "5px");
+
+//History Fact
+var Fact = d3.select(".fact")
+  .style("opacity",0)
+  .style("background-color", "white")
+  .style("padding", "5px");
+  
+var margin = 50;
+var height = 500 - 2*margin;
+var width = 1000-2*margin;
+
+//y and y-axis
+var y = d3.scaleLinear().domain([0,2000000]).range([height,0]);
+yaxis = d3.select("svg").append("g")
+  .attr("transform","translate("+margin+","+margin+")")
+  .call(d3.axisLeft(y).tickFormat(d3.format("~s")));
+ 
+//x and x-axis
+var x = d3.scaleLinear().domain([1820,2020]).range([0,width]);
+xaxis = d3.select("svg").append("g")
+  .attr("transform","translate("+margin+","+450+")")
+  .call(d3.axisBottom(x).tickFormat(d3.format("d")));
+
+//clip area: anything plotted outside of area will not display
+var clip = d3.select("svg").append("g")
+  .attr("transform","translate("+margin+","+margin+")")
+  .append("defs").append("svg:clipPath")
+  .attr("id","clip")
+  .append("svg:rect")
+  .attr("width",width)
+  .attr("height",height)
+  .attr("x",0)
+  .attr("y",0);
+
+//Points
+var points = d3.select("svg").append("g")
+  .attr("transform","translate("+50+","+50+")")
+  .attr("clip-path", "url(#clip)");
+  
+  
+points
+  .selectAll("circle").data(data).enter().append("circle")
+  .attr("cx",function(d) {return x(d.Year);})
+  .attr("cy",function(d) {return y(d.Persons);})
+  .attr("r",15)
+  .style("opacity",0)
+  .attr("fill", "#58508d")
+  .on("mouseover",function(d){
+	  tooltip
+	  .style("opacity",1)
+	  .style("left", (d3.event.pageX + 40) + "px")
+      .style("top", (d3.event.pageY-40) + "px")
+	  .html("Year:" + d.Year + "<br>" + "Immigrants: " + d.Persons)
+	  
+	  Fact
+	  .style("opacity",1)
+	  .html(d.Year + " Events: " + d.History)
+	  
+	  d3.select(this)
+	  .attr("r",7)
+	  .style("opacity",1);
+  })
+  .on("mouseout",function () {
+	  tooltip.style("opacity",0)
+	  Fact.style("opacity",0)
+	  
+	  
+	  d3.select(this)
+	  .style("opacity",0)
+	  ;})
+  ;
+  
+
+//Lines  
+var lines = d3.select("svg").append("g")
+  .attr("transform","translate("+50+","+50+")")
+  .append("path")
+  .attr("clip-path", "url(#clip)")
+  .datum(data)
+  
+lines
+  .attr("stroke", "#58508d")
+  .attr("stroke-width", 1.5)
+  .attr("fill","none")
+  .attr("d", d3.line()
+        .x(function(d) { return x(d.Year);})
+        .y(function(d) { return y(d.Persons);})
+        );
+
+function rescale(year){
+	
+    x.domain([ 1820, year ])
+	xaxis.transition().duration(1000).call(d3.axisBottom(x))
+	
+	lines.transition().duration(1000).attr("d", d3.line()
+        .x(function(d) { return x(d.Year);})
+        .y(function(d) { return y(d.Persons);}));
+	
+	points
+	.selectAll("circle").transition().duration(1000)
+	.attr("cx",function(d) {return x(d.Year);})
+    .attr("cy",function(d) {return y(d.Persons);});
+};
+
+
+d3.select("#dateSlider").on("change",function(d) {
+	val = this.value
+rescale(val)
+});
+
+
+
+}
+</script>
+
+</body>
+</html>
