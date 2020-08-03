@@ -20,15 +20,36 @@
 		}
 	select{font-size: 20px; font-weight: bold;}
 	#dropdown{margin:0 auto;width:100px;}
-	p {
+	.source {
 		text-align: center; 
-		font-size: 10px;}
+		font-size: 10px;
+		}
+	.events {
+		text-align: center; 
+		font-size: 14px;
+		}
+	.decadeEvents {
+		width:800px;
+		margin: auto;
+	}
+	.intro {
+		width:800px;
+		margin: auto;
+		font-size: 18px;}
+	}
 </style>
 </head>
 
 <body onload='init()'>
 
 <h1>Top 10 Countries of Origin by Decade</h1>
+<div class="intro">
+<p>Immigration can be dependent on the country of origin of the individual. 
+Factors such as war, socioeconomics and legislation provide a catalyst for people from varying nations to migrate. 
+Depending on the decade, some nationalities dominated the level of immigration.
+Select different decades below to see the top 10 countries of origin for individuals migrating into the U.S along with worldwide events that may have driven the immigration.
+</p>
+</div>
 
 <div id="dropdown">
 <select id="decades">
@@ -38,6 +59,7 @@
   <option value="1850to1859">1850 to 1859</option>
   <option value="1860to1869">1860 to 1869</option>
   <option value="1870to1879">1870 to 1879</option>
+  <option value="1880to1889">1880 to 1889</option>
   <option value="1890to1899">1890 to 1899</option>
   <option value="1900to1909">1900 to 1909</option>
   <option value="1910to1919">1910 to 1919</option>
@@ -66,14 +88,20 @@
 <button class="button" onclick="location.href='http://jhuamani.github.io/Site3.html'" type="button">Age Groups</button>
 </div>
 
-<p>Source: "Yearbook of Immigration Statistics" U.S. Department of Homeland Security,
-https://www.dhs.gov/immigration-statistics/yearbook </p> 
+<div class="decadeEvents"></div>
+
+<p class="source">Data Source: "Yearbook of Immigration Statistics" U.S. Department of Homeland Security,
+https://www.dhs.gov/immigration-statistics/yearbook</br>
+Historical Event Sources: "Wikipedia" Wikimedia Foundation, https://en.wikipedia.org/</br>
+"Library" Central Intelligence Agency, https://cia.gov/library</br>
+"U.S. Immigration Timeline" History, A&E Television Networks "https://history.com/topics/immigration/immigration-united-states-timeline</p>
 
 <script>
 
 async function init() {
  
 data = await d3.csv("https://jhuamani.github.io/Countries%20and%20Decades.csv");
+events = await d3.csv("https://jhuamani.github.io/DecadeEvents.csv");
 
 //Tooltip
 var tooltip = d3.select("body").append("div")
@@ -89,6 +117,14 @@ var currentDecade = document.getElementById("decades").value
 //then filtering out top 10 countries in descending order
 FiltData = data.sort(function(a,b) { return +a[currentDecade] - +b[currentDecade]; });
 FiltData = FiltData.filter(function(d,i){ return i>68; });
+
+FiltEvent = events.filter(function(d){ return d.Decades == currentDecade })
+EventText = FiltEvent[0].Events
+
+DEvents = d3.select(".decadeEvents")
+	.append("p")
+	.attr("class","events")
+	.html("<strong>Decade Events:</strong></br>" + EventText+ "</br>")
 
 var margin = 100; //all but left margin
 var height = 550 - 2*margin;
@@ -159,6 +195,10 @@ function rebar(decade){
 	.attr("width", function(d) {return x(d[decade]);})
 	.attr("fill", "#58508d")
 	
+	FiltEvent = events.filter(function(d){ return d.Decades == decade })
+	EventText = FiltEvent[0].Events
+
+	DEvents.html("<strong>Decade Events:</strong></br>" + EventText+ "</br>")
 };
 
 d3.select("#decades").on("change", function(d){

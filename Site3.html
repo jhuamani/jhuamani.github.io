@@ -20,15 +20,27 @@
 		}
 	select{font-size: 20px; font-weight: bold;}
 	#dropdown{margin:0 auto;width:100px;}
-	p {
+	.source {
 		text-align: center; 
 		font-size: 10px;}
+	.intro {
+		width:800px;
+		margin: auto;
+		font-size: 18px;}
+	}
 </style>
 </head>
 
 <body onload='init()'>
 
 <h1>U.S. Immigrants Admitted by Age Group</h1>
+
+<div class="intro">
+<p>Besides nationality, age and sex are factors that affect immigration.
+From the chart below, young adults tend to have the best capacity to migrate regardless of the year selected. 
+An interesting insight is that females were the dominant sex migrating into the U.S. for most years and age groups.
+</p>
+</div>
 
 <div id="dropdown">
 <select id="year">
@@ -78,7 +90,7 @@
 <button class="button" onclick="location.href='http://jhuamani.github.io/Site1.html'" type="button">Immigrants Admitted</button>
 </div>
 
-<p>Source: "Yearbook of Immigration Statistics" U.S. Department of Homeland Security,
+<p class="source">Source: "Yearbook of Immigration Statistics" U.S. Department of Homeland Security,
 https://www.dhs.gov/immigration-statistics/yearbook </p> 
 
 <script>
@@ -199,19 +211,34 @@ Mrects
 	 ;});
 
 //legend
-var sexes = ["Female", "Male"]
-var colors = ["#1dfff9", "#ff7c43"]
+var legx = 800;
 
-var colorScale = d3.scaleOrdinal().domain(sexes).range(colors);
+d3.select("svg").append("circle")
+  .attr("cx",legx)
+  .attr("cy",margin)
+  .attr("r", 6)
+  .style("fill", "#a05195")
+  
+d3.select("svg").append("circle")
+.attr("cx",legx)
+.attr("cy",margin+30)
+.attr("r", 6)
+.style("fill", "#ff7c43")
 
-d3.select("svg").selectAll("mydots")
-  .data(sexes)
-  .enter().append("circle")
-  .attr("x",100)
-  .attr("y", function(d,i) {return 100+i*25;})
-  .attr("width",20)
-  .attr("height",20)
-  .style("fill",function(d) {return colorScale(d);})
+d3.select("svg")
+.append("text")
+.attr("x", legx + 20)
+.attr("y", margin)
+.text("Females")
+.style("font-size", "15px")
+.attr("alignment-baseline","middle")
+
+d3.select("svg").append("text")
+.attr("x", legx + 20)
+.attr("y", margin+30)
+.text("Males")
+.style("font-size", "15px")
+.attr("alignment-baseline","middle")
 
 
 function rebar(year){

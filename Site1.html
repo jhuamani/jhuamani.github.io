@@ -21,16 +21,23 @@
 		margin: auto;
 		cursor: pointer;
 		}
-	p {
+	.sources{
 		text-align: center; 
 		font-size: 10px;}
+	.intro {
+		width:800px;
+		margin: auto;
+		font-size: 18px;}
+	}
 </style>
 </head>
 
 <body onload='init()'>
 
 <h1>U.S. Immigrants Admitted: 1820 - 2018</h1>
-
+<p class="intro">The U.S. is a nation built by immigrants. However, immigration ocurred in waves due to the complex push and pull factors that drives it. 
+Hover over the line graph for added insight on some worldwide events that influence the direction of U.S. immigration.
+</p>
 <svg width=1000 height=500 ></svg>
 <div class="slider"></div>
 <div class="fact"></div>
@@ -43,7 +50,7 @@
 <button class="button" onclick="location.href='http://jhuamani.github.io/Site2.html'" type="button">Top 10 Countries</button>
 </div>
 
-<p>Data Source: "Yearbook of Immigration Statistics" U.S. Department of Homeland Security,
+<p class="sources">Data Source: "Yearbook of Immigration Statistics" U.S. Department of Homeland Security,
 https://www.dhs.gov/immigration-statistics/yearbook</br>
 Historical Event Sources: "Wikipedia" Wikimedia Foundation, https://en.wikipedia.org/</br>
 "Library" Central Intelligence Agency, https://cia.gov/library</br>
